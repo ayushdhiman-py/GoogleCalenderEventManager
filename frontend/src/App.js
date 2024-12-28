@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import "./App.css"; 
@@ -14,7 +14,7 @@ const App = () => {
           fetchEvents();
           setInterval(fetchEvents, 5000);
         })
-        .catch((error) => console.log(error.message));
+        // .catch((error) => console.log(error.message));
     },
     onError: () => console.log("Login Failed"),
     flow: "auth-code",
@@ -31,9 +31,9 @@ const App = () => {
         endDateTime,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
       })
-      .catch((error) => console.log(error.message));
+      // .catch((error) => console.log(error.message));
   };
 
   const [summary, setSummary] = useState("");
@@ -47,7 +47,7 @@ const App = () => {
     axios
       .get("http://localhost:4000/api/all-events")
       .then((response) => setEvents(response.data))
-      .catch((error) => console.log(error.message));
+      // .catch((error) => console.log(error.message));
   };
 
   return (
@@ -62,12 +62,13 @@ const App = () => {
           <div className="container">
             <div className="form-container">
               <form onSubmit={handleSubmit}>
-                <label htmlFor="summary">Summary</label>
+                <label htmlFor="summary">Title</label>
                 <input
                   type="text"
                   id="summary"
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
+                  required
                 />
                 <label htmlFor="desc">Description</label>
                 <input
@@ -75,6 +76,7 @@ const App = () => {
                   id="desc"
                   value={desc}
                   onChange={(e) => setDesc(e.target.value)}
+                  required
                 />
                 <label htmlFor="startDateTime">Start Date Time</label>
                 <input
@@ -82,13 +84,15 @@ const App = () => {
                   id="startDateTime"
                   value={startDateTime}
                   onChange={(e) => setStartDateTime(e.target.value)}
-                />
+                  required
+                  />
                 <label htmlFor="endDateTime">End Date Time</label>
                 <input
                   type="datetime-local"
                   id="endDateTime"
                   value={endDateTime}
                   onChange={(e) => setEndDateTime(e.target.value)}
+                  required
                 />
                 <button type="submit">Create Event</button>
               </form>
@@ -97,7 +101,7 @@ const App = () => {
             <div className="events-container">
               <h2>Upcoming Events</h2>
               <div className="headingoftable">
-                <h3>Summary</h3>
+                <h3>Title</h3>
                 <h3>Description</h3>
                 <h3>Start</h3>
                 <h3>End</h3>
