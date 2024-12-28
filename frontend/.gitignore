@@ -23,10 +23,10 @@ dist/
 build/
 
 # Environment files
-.env
-src/.env
-.env.local
-.env.*.local
+# .env
+# src/.env
+# .env.local
+# .env.*.local
 
 # Python
 __pycache__/
